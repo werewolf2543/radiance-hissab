@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Galla Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ Mobile support -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 420px;
+      width: 100%;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      width: 100%;
+      max-width: 180px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      background: #e6f7ff;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .basic-calc {
+      margin-top: 40px;
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+
+    .basic-calc input {
+      width: 100%;
+      font-size: 20px;
+      padding: 10px;
+      margin-bottom: 10px;
+      text-align: right;
+      box-sizing: border-box;
+    }
+
+    .basic-calc .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .basic-calc button {
+      padding: 14px;
+      font-size: 18px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .basic-calc button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.jpg" alt="Logo" class="logo">
+
+    <label for="a">A: Total written by barbers</label>
+    <input type="number" id="a" placeholder="Enter A">
+
+    <label for="b">PhonePe Total</label>
+    <input type="number" id="b" placeholder="Enter PhonePe (B)">
+
+    <label for="c">BOB Total</label>
+    <input type="number" id="c" placeholder="Enter BOB (C)">
+
+    <label for="d">Tips (online only)</label>
+    <input type="number" id="d" placeholder="Enter Tips (D)">
+
+    <label for="e">Expenses (tea, charity, tips in cash)</label>
+    <input type="number" id="e" placeholder="Enter Expenses (E)">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="output"></div>
+
+    <div class="footer">Made by Harshit the Great</div>
+  </div>
+
+  <!-- Basic Calculator -->
+  <div class="container basic-calc">
+    <h3>Standard Calculator</h3>
+    <input type="text" id="calc-display" readonly>
+    <div class="buttons">
+      <button onclick="appendCalc('7')">7</button>
+      <button onclick="appendCalc('8')">8</button>
+      <button onclick="appendCalc('9')">9</button>
+      <button onclick="appendCalc('/')">/</button>
+      <button onclick="appendCalc('4')">4</button>
+      <button onclick="appendCalc('5')">5</button>
+      <button onclick="appendCalc('6')">6</button>
+      <button onclick="appendCalc('*')">*</button>
+      <button onclick="appendCalc('1')">1</button>
+      <button onclick="appendCalc('2')">2</button>
+      <button onclick="appendCalc('3')">3</button>
+      <button onclick="appendCalc('-')">-</button>
+      <button onclick="appendCalc('0')">0</button>
+      <button onclick="appendCalc('.')">.</button>
+      <button onclick="calculateResult()">=</button>
+      <button onclick="appendCalc('+')">+</button>
+      <button onclick="clearCalc()">C</button>
+      <button onclick="backspaceCalc()">←</button>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const a = parseFloat(document.getElementById('a').value) || 0;
+      const b = parseFloat(document.getElementById('b').value) || 0;
+      const c = parseFloat(document.getElementById('c').value) || 0;
+      const d = parseFloat(document.getElementById('d').value) || 0;
+      const e = parseFloat(document.getElementById('e').value) || 0;
+
+      const result = (a - ((b + c) - d)) - e;
+      const finalResult = result + 1412;
+
+      document.getElementById('output').innerHTML = `
+        Expected Cash (excluding ₹1412): <span style="color:#008000;">₹${result.toFixed(2)}</span><br>
+        Total Cash in Galla (with ₹1412): <span style="color:#cc0000;">₹${finalResult.toFixed(2)}</span>
+      `;
+    }
+
+    function appendCalc(val) {
+      document.getElementById('calc-display').value += val;
+    }
+
+    function clearCalc() {
+      document.getElementById('calc-display').value = '';
+    }
+
+    function backspaceCalc() {
+      const display = document.getElementById('calc-display');
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      const display = document.getElementById('calc-display');
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
